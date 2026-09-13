@@ -1,0 +1,34 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Campus Connect</string>
+    <string name="app_title">Campus Connect</string>
+    <string name="app_subtitle">Yoonu jàngukaay yi ngir etudiant yu dëkk ci bés bu nekk</string>
+
+    <string name="resources_section_header">Resorsu yu kampus</string>
+    <string name="category_label">Kategori: %1$s</string>
+
+    <string name="resource_intl_office_name">Biro bu Etudiant yu International</string>
+    <string name="resource_intl_office_category">Ndimbal / Konsel</string>
+    <string name="resource_intl_office_hours">9:00 AM - 5:00 PM</string>
+
+    <string name="resource_library_name">Bibliotek bu Mag</string>
+    <string name="resource_library_category">Bes bu jàng</string>
+    <string name="resource_library_hours">7:00 AM - 11:00 PM</string>
+
+    <string name="resource_veterans_name">Santaru Resorsu yu Veteran yi</string>
+    <string name="resource_veterans_category">Ndimbal yu ñu may</string>
+    <string name="resource_veterans_hours">8:00 AM - 6:00 PM</string>
+
+    <string name="last_updated_label">Yeesal bi mujj: %1$s</string>
+    <string name="hours_label">Waxtu: %1$s</string>
+
+    <string name="content_desc_resource_card">%1$s, %2$s, waxtu %3$s</string>
+
+    <string name="updated_short_label">Yeesal: %1$s</string>
+    <string name="fee_label">Fii: %1$s</string>
+    <string name="capacity_label">Njaatige: nit %1$s</string>
+
+    <plurals name="review_count" tools:ignore="UnusedQuantity">
+        <item quantity="one">%d xool</item>
+        <item quantity="other">%d xool yi</item>
+    </plurals>
+</resources>

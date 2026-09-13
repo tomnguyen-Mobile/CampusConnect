@@ -22,7 +22,9 @@ import androidx.compose.ui.unit.dp
 import java.text.NumberFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.Locale
+
 
 data class CampusResource(
     @param:StringRes val nameRes: Int,
@@ -49,18 +51,18 @@ val sampleResources = listOf(
         nameRes = R.string.resource_library_name,
         categoryRes = R.string.resource_library_category,
         hoursRes = R.string.resource_library_hours,
-        lastUpdatedDate = LocalDate.of(2026,10,8),
+        lastUpdatedDate = LocalDate.of(2026,8,10),
         reviewCount = 24,
-        capacity = 15,
-        fee = 0.0,
+        capacity = 1200,
+        fee = 0.10,
     ),
     CampusResource(
         nameRes = R.string.resource_veterans_name,
         categoryRes = R.string.resource_veterans_category,
         hoursRes = R.string.resource_veterans_hours,
         lastUpdatedDate = LocalDate.of(2026,8,15),
-        reviewCount = 1,
-        capacity = 30,
+        reviewCount = 8,
+        capacity = 40,
         fee = 0.0,
     ),
 )
@@ -81,7 +83,7 @@ class MainActivity : ComponentActivity() {
 fun CampusConnectScreen() {
     Column(
         modifier = Modifier
-            .padding(16.dp),
+            .padding(12.dp),
     ) {
         Text(
             stringResource(R.string.app_title),
@@ -91,7 +93,15 @@ fun CampusConnectScreen() {
             stringResource(R.string.app_subtitle),
             style = MaterialTheme.typography.bodyMedium,
         )
-        Spacer(modifier = Modifier.height(16.dp))
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            stringResource(R.string.resources_section_header),
+            style=MaterialTheme.typography.titleSmall
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
 
         LazyColumn {
             items(sampleResources) { resource ->
@@ -104,6 +114,34 @@ fun CampusConnectScreen() {
 
 @Composable
 fun ResourceCard(resource: CampusResource) {
+    val context = LocalContext.current
+    val locale = Locale.getDefault()
+
+    val dateFullFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(locale)
+
+    val dateShortFormatter = DateTimeFormatter
+        .ofLocalizedDate(FormatStyle.SHORT).withLocale(locale)
+    val currencyFormatter = NumberFormat.getCurrencyInstance(locale)
+    val integerFormatter = NumberFormat.getIntegerInstance(locale)
+
+    val name = stringResource(resource.nameRes)
+    val category = stringResource(resource.categoryRes)
+    val hours = stringResource(R.string.hours_label, stringResource(resource.hoursRes))
+
+    val reviewText = context.resources.getQuantityString(
+        R.plurals.review_count,
+        resource.reviewCount,
+        resource.reviewCount
+    )
+
+    val capacityFormatted = integerFormatter.format(resource.capacity)
+    val contentDesc = stringResource(
+        R.string.content_desc_resource_card,
+        name,
+        category,
+        hours)
+
+
     Card(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(12.dp)) {
             Text(
@@ -111,22 +149,39 @@ fun ResourceCard(resource: CampusResource) {
                 style = MaterialTheme.typography.titleMedium
             )
             Text(
-                stringResource(resource.categoryRes),
+                stringResource(R.string.category_label,resource.categoryRes),
                 style = MaterialTheme.typography.bodySmall
             )
+            Text(hours)
             Text(
                 stringResource(
-                    R.string.hours_label,
-                    stringResource(resource.hoursRes),
+                    R.string.capacity_label,
+                    capacityFormatted
                 )
+            )
+
+            Text(reviewText)
+
+            if (resource.fee > 0.0) {
+                Text(stringResource(
+                    R.string.fee_label,
+                    currencyFormatter.format(resource.fee))
+                )
+            }
+            Text(
+                stringResource(
+                    R.string.updated_short_label,
+                    resource.lastUpdatedDate.format(dateShortFormatter)
+                ),style=MaterialTheme.typography.bodySmall
             )
             Text(
                 stringResource(
                     R.string.last_updated_label,
-                    resource.lastUpdatedDate
+                    resource.lastUpdatedDate.format(dateFullFormatter)
                 ),
                 style = MaterialTheme.typography.bodySmall
             )
+
         }
     }
 }

@@ -23,9 +23,9 @@
 
     <string name="content_desc_resource_card">%1$s, %2$s, horario %3$s</string>
 
-    <string name="updated_short_label">Actualizado: 1$s</string>
-    <string name="fee_label">Tarifa: 1$s</string>
-    <string name="capacity_label">Capacidad: 1$s personas</string>
+    <string name="updated_short_label">Actualizado: %1$s</string>
+    <string name="fee_label">Tarifa: %1$s</string>
+    <string name="capacity_label">Capacidad: %1$s personas</string>
 
     <plurals name="review_count">
         <item quantity="one">%d reseña</item>
