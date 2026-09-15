@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="padding_screen">16dp</dimen>
+    <dimen name="padding_card_inner">12dp</dimen>
+    <dimen name="padding_card_start">30dp</dimen>
+</resources>

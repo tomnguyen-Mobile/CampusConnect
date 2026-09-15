@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
@@ -17,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import java.text.NumberFormat
@@ -24,6 +26,8 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 
 
 data class CampusResource(
@@ -61,7 +65,7 @@ val sampleResources = listOf(
         categoryRes = R.string.resource_veterans_category,
         hoursRes = R.string.resource_veterans_hours,
         lastUpdatedDate = LocalDate.of(2026,8,15),
-        reviewCount = 8,
+        reviewCount = 0,
         capacity = 40,
         fee = 0.0,
     ),
@@ -83,7 +87,7 @@ class MainActivity : ComponentActivity() {
 fun CampusConnectScreen() {
     Column(
         modifier = Modifier
-            .padding(12.dp),
+            .padding(dimensionResource(R.dimen.padding_screen)),
     ) {
         Text(
             stringResource(R.string.app_title),
@@ -94,19 +98,20 @@ fun CampusConnectScreen() {
             style = MaterialTheme.typography.bodyMedium,
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.spacing_section)))
 
         Text(
             stringResource(R.string.resources_section_header),
-            style=MaterialTheme.typography.titleSmall
+            style=MaterialTheme.typography.titleSmall,
+            modifier = Modifier.semantics { heading() } //start of a section
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.spacing_list_header)))
 
         LazyColumn {
             items(sampleResources) { resource ->
                 ResourceCard(resource)
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.spacing_car_app)))
             }
         } // end of LazyColumn
     } // end of column
@@ -143,7 +148,9 @@ fun ResourceCard(resource: CampusResource) {
 
 
     Card(modifier = Modifier.fillMaxWidth()) {
-        Column(modifier = Modifier.padding(12.dp)) {
+        Column(modifier = Modifier
+            .padding(dimensionResource(R.dimen.padding_card_inner))
+            .padding(start=dimensionResource(R.dimen.padding_card_start))) {
             Text(
                 stringResource(resource.nameRes),
                 style = MaterialTheme.typography.titleMedium
